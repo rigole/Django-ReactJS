@@ -1,9 +1,14 @@
-import react from 'react'
+ import react from 'react'
+ import { Container, Row, Col } from "react-bootstrap";
 
-function Footer() {
+ function Footer() {
     return (
         <footer>
-            Footer
+            <Container>
+                <Row>
+                    <Col className="text-center py-3">Copyright &copy; 237_Shop</Col>
+                </Row>
+            </Container>
         </footer>
     )
 }
