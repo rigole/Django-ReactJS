@@ -39,7 +39,7 @@ export const listProductDetails = (id) => async (dispatch) => {
     try {
         dispatch({ type: PRODUCT_DETAILS_REQUEST })
 
-        axios.get(`/api/products/${id}`).then((response) => {
+        axios.get(`/api/products/${id}/`).then((response) => {
 
             dispatch({ type: PRODUCT_DETAILS_SUCCESS, payload: response.data })
         })
