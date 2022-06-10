@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { Row, Col, Image, ListGroup, Button, Card,  Form } from "react-bootstrap";
 import Rating from '../components/Rating'
 import Loader from "../components/Loader";
@@ -9,10 +10,10 @@ import { listProductDetails } from "../actions/productAction";
 //import axios from "axios";
 //import products from "../products";
 
-function ProductScreen() {
+function ProductScreen(  ) {
     const { id } = useParams()
     const [quantity, setQuantity] = useState(1);
-
+    const navigate = useNavigate()
     ///const [product, setProduct] = useState([])
 
         /*async function fetchProduct() {
@@ -31,12 +32,17 @@ function ProductScreen() {
 
 
 
+
+
+
         useEffect(() => {
           //  fetchProduct()
             dispatch(listProductDetails(id))
         }, [dispatch, id])
 
-        //let product = {}
+    const addToCart = () => {
+        navigate(`/cart/${id}?qty=${quantity}`)
+    }
     
 
     return(
@@ -115,7 +121,14 @@ function ProductScreen() {
                                         )}
 
                                         <ListGroup.Item>
-                                            <Button className="btn-block" disabled={product.countInStock == 0} type="button">Add to Cart</Button>
+                                            <Button
+                                                className="btn-block"
+                                                onClick={addToCart}
+                                                disabled={product.countInStock == 0}
+                                                type="button"
+                                            >
+                                                Add to Cart
+                                            </Button>
                                         </ListGroup.Item>
                                     </ListGroup>
                                 </Card>
