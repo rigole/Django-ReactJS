@@ -31,10 +31,6 @@ function ProductScreen(  ) {
     const { loading, error, product } = productDetails
 
 
-
-
-
-
         useEffect(() => {
           //  fetchProduct()
             dispatch(listProductDetails(id))

@@ -2,10 +2,10 @@ import './App.css';
 import { Container } from "react-bootstrap";
 import { Routes, Route  } from "react-router-dom";
 import Header from "./components/Header";
-import HomeScreen from "./screen/HomeScreen";
+import HomeComponent from "./screen/HomeComponent";
 import ProductScreen from "./screen/ProductScreen";
 import Footer from "./components/Footer";
-import CartScreen    from "./screen/CartScren";
+import CartScreen    from "./screen/CartComponent";
 
 
 function App() {
@@ -15,9 +15,9 @@ function App() {
             <main className="py-3">
                 <Container>
                     <Routes>
-                        <Route path='/' element={<HomeScreen/>} exact/>
+                        <Route path='/' element={<HomeComponent/>} exact/>
                         <Route path="/product/:id" element={<ProductScreen/>} />
-                        <Route path="/cart/:id?" element={<CartScreen/>}/>
+                        <Route path="/cart/:id" element={<CartScreen/>}/>
                     </Routes>
                 </Container>
             </main>
