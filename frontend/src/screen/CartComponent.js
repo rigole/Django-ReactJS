@@ -28,7 +28,9 @@ function CartScreen({ match, location }){
         }
     }, [dispatch, productId, quantity])
 
-
+    const removeFromCartHandler = (id) => {
+         console.log("product removed", id);
+    }
 
     return (
         <Row>
@@ -62,7 +64,7 @@ function CartScreen({ match, location }){
                                         <Form.Control
                                             as="select"
                                             value={item.qty}
-                                            onChange={(e) => dispatch(addToCart(item.product, e.target.value))}
+                                            onChange={(e) => dispatch(addToCart(item.product, Number(e.target.value)))}
                                         >
                                             {
                                                 [...Array(item.countInStock).keys()].map((x) =>(
@@ -79,6 +81,7 @@ function CartScreen({ match, location }){
                                         <Button
                                             type="button"
                                             variant="light"
+                                            onClick={() => removeFromCartHandler(item.product)}
                                         >
                                             <i className="fas fa-trash"></i>
                                         </Button>
@@ -92,7 +95,11 @@ function CartScreen({ match, location }){
                 )}
             </Col>
             <Col md={4}>
-
+                <ListGroup variant="flush">
+                    <ListGroup.Item>
+                        <h2>Subtotal ({cartItems.reduce((acc, item) => acc + item.qty, 0)}) items</h2>
+                    </ListGroup.Item>
+                </ListGroup>
             </Col>
         </Row>
     )
