@@ -11,6 +11,8 @@ function CartScreen({ match, location }){
      match = useParams();
      const productId = match.id
 
+    const navigate = useNavigate()
+
      location = useLocation()
     const quantity = location.search ? Number(location.search.split('=')[1]) : 1
 
@@ -30,6 +32,10 @@ function CartScreen({ match, location }){
 
     const removeFromCartHandler = (id) => {
          console.log("product removed", id);
+    }
+
+    const checkoutHandler = () => {
+         navigate("/login?redirect=shipping")
     }
 
     return (
@@ -57,7 +63,7 @@ function CartScreen({ match, location }){
                                     </Col>
 
                                     <Col md={2}>
-                                        ${item.price}
+                                        {item.price} FCFA
                                     </Col>
 
                                     <Col md={3}>
@@ -97,9 +103,22 @@ function CartScreen({ match, location }){
             <Col md={4}>
                 <ListGroup variant="flush">
                     <ListGroup.Item>
-                        <h2>Subtotal ({cartItems.reduce((acc, item) => acc + item.qty, 0)}) items</h2>
+                        <h1>SUBTOTAL ({cartItems.reduce((acc, item) => acc + item.qty, 0)}) items</h1>
+                        {cartItems.reduce((acc, item) => acc + item.qty * item.price, 0).toFixed(2)}  FCFA
+
                     </ListGroup.Item>
                 </ListGroup>
+
+                <ListGroup.Item>
+                    <Button
+                        type="button"
+                        className="btn-block"
+                        disabled={cartItems.length === 0}
+                        onClick={checkoutHandler}
+                    >
+                        Proceed to Checkout
+                    </Button>
+                </ListGroup.Item>
             </Col>
         </Row>
     )
