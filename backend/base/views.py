@@ -11,6 +11,9 @@ from .models import Product
 from .products import products
 from .serializers import ProductSerializer, UserSerializer, UserSerializerWithToken
 
+from django.contrib.auth.hashers import make_password
+
+
 # Create your views here.
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
@@ -52,6 +55,8 @@ def getRoutes(request):
    return Response(routes)
 
 
+
+#view to get all the users and authentication as admin is required
 @api_view(['GET'])
 @permission_classes([IsAdminUser])
 def getUsers(request):
@@ -60,6 +65,25 @@ def getUsers(request):
     return Response(serializer.data)
     
 
+
+@api_view(['POST'])
+def registerUser(request):
+    data = request.data
+    user = User.objects.create(
+        first_name = data['name'],
+        username = data['email'],
+        email = data['email'],
+        password = make_password(data['password'])
+    )
+    
+    serializer = UserSerializerWithToken(user, many=False)
+        
+    
+    return Response(serializer.data)
+
+
+
+#get user profile once we arre connected
 @api_view(['GET'])
 def getUserProfile(request):
     user = request.user
@@ -67,6 +91,7 @@ def getUserProfile(request):
     return Response(serializer.data)
 
 
+#geget the list of product selected once we are authenticated
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def getProducts(request):
@@ -74,6 +99,8 @@ def getProducts(request):
     serializer = ProductSerializer(products, many=True)
     return Response(serializer.data)
 
+
+#get information about single product
 @api_view(['GET'])
 def getProduct(request,pk):
     product = Product.objects.get(_id=pk)
