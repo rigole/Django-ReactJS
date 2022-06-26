@@ -1,15 +1,15 @@
 from itertools import product
 import django
 from django.shortcuts import render
-from django.http import JsonResponse
+
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from rest_framework.response import Response
 
 from django.contrib.auth.models import User
-from .models import Product
-from .products import products
-from .serializers import ProductSerializer, UserSerializer, UserSerializerWithToken
+
+#from .products import products
+from base.serializers import ProductSerializer, UserSerializer, UserSerializerWithToken
 
 from django.contrib.auth.hashers import make_password
 from rest_framework import status
@@ -17,6 +17,8 @@ from rest_framework import status
 # Create your views here.
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
+
+
 
 
 
@@ -31,39 +33,6 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
 
 class MyTokenObtainPairView(TokenObtainPairView):
     serializer_class = MyTokenObtainPairSerializer
-
-
-
-
-@api_view(['GET'])
-def getRoutes(request):
-   routes = [
-       
-       '/api/products/',
-       '/api/products/create/',
-       
-       '/api/products/upload/',
-       'api/products/<id>/reviews/',
-       
-       '/api/products/top/',
-       '/api/products/<id>/',
-       
-       '/api/products/delete/<id>/',
-       '/api/products/<update>/<id>',
-       
-   ]
-   return Response(routes)
-
-
-
-#view to get all the users and authentication as admin is required
-@api_view(['GET'])
-@permission_classes([IsAdminUser])
-def getUsers(request):
-    users = User.objects.all()
-    serializer = UserSerializer(users, many=True)
-    return Response(serializer.data)
-    
 
 
 @api_view(['POST'])
@@ -93,18 +62,12 @@ def getUserProfile(request):
     return Response(serializer.data)
 
 
-#geget the list of product selected once we are authenticated
-@api_view(['GET'])
-@permission_classes([IsAuthenticated])
-def getProducts(request):
-    products = Product.objects.all()
-    serializer = ProductSerializer(products, many=True)
-    return Response(serializer.data)
 
-
-#get information about single product
+#view to get all the users and authentication as admin is required
 @api_view(['GET'])
-def getProduct(request,pk):
-    product = Product.objects.get(_id=pk)
-    serializer = ProductSerializer(product, many=False)
+@permission_classes([IsAdminUser])
+def getUsers(request):
+    users = User.objects.all()
+    serializer = UserSerializer(users, many=True)
     return Response(serializer.data)
+    
