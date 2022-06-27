@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react'
-import {Link, useHistory, useLocation} from "react-router-dom";
+import {Link, useNavigate, useLocation} from "react-router-dom";
 import { Form, Button, Row, Col } from 'react-bootstrap'
 import { useDispatch, useSelector } from "react-redux";
 import Loader from "../components/Loader";
@@ -9,27 +9,35 @@ import { login } from "../actions/userAction";
 
 function LoginScreen() {
     let location = useLocation()
-    let history = useHistory()
+    let navigate = useNavigate()
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+
+    const dispatch = useDispatch()
 
     const redirect = location.search ? location.search.split('=')[1] : '/'
 
     const userLogin = useSelector(state => state.userLogin)
     const { error, loading, userInfo } = userLogin
 
+    useEffect(() => {
+        if(userInfo){
+            navigate("/login")
+        }
+    }, [navigate, userInfo, redirect])
 
 
     const submitHandler = (e) => {
         e.preventDefault()
-        console.log("Submitted")
+        dispatch(login(email, password))
     }
 
 
     return(
         <FormContainer>
             <h1>Sign In</h1>
-
+            {error && <Message variant='danger' message={error}/>}
+            {loading && <Loader/>}
             <Form onSubmit={submitHandler}>
                 <Form.Group controlId='email'>
                    <Form.Label>Email Address</Form.Label>
