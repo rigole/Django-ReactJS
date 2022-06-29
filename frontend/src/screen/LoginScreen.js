@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Loader from "../components/Loader";
 import Message from "../components/Message";
 import FormContainer from "../components/FormContainer";
-import { login } from "../actions/userAction";
+import { login } from "../actions/userActions";
 
 function LoginScreen() {
     let location = useLocation()
@@ -68,7 +68,7 @@ function LoginScreen() {
 
             <Row className="py-3">
                 <Col>
-                    New Customer ? <Link to={redirect ? `/register?redirect=${redirect}` :'/register'}>Register</Link>
+                    New Customer ? <Link to={redirect ? `/register?redirect=${redirect}` :'/register'}>Sign Up</Link>
                 </Col>
             </Row>
         </FormContainer>
