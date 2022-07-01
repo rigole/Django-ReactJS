@@ -8,6 +8,7 @@ import Footer from "./components/Footer";
 import CartScreen from "./screen/CartComponent";
 import LoginScreen from "./screen/LoginScreen";
 import RegisterScreen from "./screen/RegisterScreen";
+import ProfileComponent from "./screen/ProfileComponent";
 
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
                         <Route path="/login" element={<LoginScreen/>}/>
                         <Route path='/register' element={<RegisterScreen/>}/>
                         <Route path="/cart/:id" element={<CartScreen/>}/>
+                        <Route path="/profile" element={<ProfileComponent/>}/>
                         <Route path="/cart" element={<CartScreen/>}/>
                     </Routes>
                 </Container>
