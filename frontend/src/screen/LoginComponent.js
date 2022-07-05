@@ -7,7 +7,7 @@ import Message from "../components/Message";
 import FormContainer from "../components/FormContainer";
 import { login } from "../actions/userActions";
 
-function LoginScreen() {
+function LoginComponent() {
     let location = useLocation()
     let navigate = useNavigate()
     const [email, setEmail] = useState('')
@@ -75,4 +75,4 @@ function LoginScreen() {
     )
 }
 
-export default LoginScreen
+export default LoginComponent

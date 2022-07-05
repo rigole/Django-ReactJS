@@ -9,7 +9,7 @@ import {login, register} from "../actions/userActions";
 
 
 
-function RegisterScreen(){
+function RegisterComponent(){
 
     const location = useLocation()
      const navigate = useNavigate()
@@ -118,4 +118,4 @@ function RegisterScreen(){
     )
 }
 
-export default RegisterScreen
+export default RegisterComponent
