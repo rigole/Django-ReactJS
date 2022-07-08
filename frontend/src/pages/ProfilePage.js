@@ -9,7 +9,7 @@ import {getUserDetails, updateUserProfile} from "../actions/userActions";
 import { USER_UPDATE_PROFILE_RESET } from '../constants/userConstants'
 
 
-function ProfileComponent(){
+function ProfilePage(){
 
 
     const location = useLocation()
@@ -138,4 +138,4 @@ function ProfileComponent(){
     )
 }
 
-export default ProfileComponent
+export default ProfilePage

@@ -9,7 +9,7 @@ import axios from 'axios';
 
 
 
-function HomeComponent() {
+function HomePage() {
     const dispatch = useDispatch();
     const productList = useSelector((state) => state.productList);
      const { error, loading, products } = productList;
@@ -50,4 +50,4 @@ function HomeComponent() {
     )
 }
 
-export default HomeComponent;
+export default HomePage;

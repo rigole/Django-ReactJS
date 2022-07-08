@@ -10,7 +10,7 @@ import { listProductDetails } from "../actions/productAction";
 //import axios from "axios";
 //import products from "../products";
 
-function ProductComponent(  ) {
+function ProductPage(  ) {
     const { id } = useParams()
     const [quantity, setQuantity] = useState(1);
     const navigate = useNavigate()
@@ -138,4 +138,4 @@ function ProductComponent(  ) {
     )
 }
 
-export default ProductComponent
+export default ProductPage

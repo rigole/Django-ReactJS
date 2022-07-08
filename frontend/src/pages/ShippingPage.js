@@ -7,7 +7,7 @@ import CheckoutStepsComponent from "../components/CheckoutStepsComponent";
 import { saveShippingAddress } from "../actions/cartActions";
 
 
-function ShippingComponent(){
+function ShippingPage(){
 
     const cart = useSelector(state => state.cart)
     const { shippingAddress } = cart
@@ -85,4 +85,4 @@ function ShippingComponent(){
         </FormContainer>
     )
 }
-export default ShippingComponent
+export default ShippingPage
