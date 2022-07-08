@@ -11,6 +11,7 @@ import RegisterPage from "./pages/RegisterPage";
 import ProfilePage from "./pages/ProfilePage";
 import ShippingPage from "./pages/ShippingPage";
 import PaymentComponent from "./components/PaymentComponent";
+import PlaceOrderPage from "./pages/PlaceOrderPage";
 
 
 function App() {
@@ -28,6 +29,7 @@ function App() {
                         <Route path="/profile" element={<ProfilePage/>}/>
                         <Route path="/shipping" element={<ShippingPage/>}/>
                         <Route path="/cart" element={<CartScreen/>}/>
+                        <Route path="/placeorder" element={<PlaceOrderPage/>}/>
                         <Route path="/payment" element={<PaymentComponent/>}/>
                     </Routes>
                 </Container>
