@@ -13,42 +13,42 @@ from rest_framework import status
 
 
 @api_view(['POST'])
-@permission_classes(['IsAuthenticated'])
+@permission_classes([IsAuthenticated])
 def addOrderItems(request):
     user = request.user
     data = request.data
-    
+
     orderItems = data['orderItems']
-    
-    
+
+
     if orderItems and len(orderItems) == 0:
         return Response({'detail': 'No Order Items'}, status = status.HTTP_400_BAD_REQUEST)
     else:
-        
+
         #create Order
         order = Order.objects.create(
             user = user,
-            paymentMethod = data['PaymentMethod'],
+            paymentMethod = data['paymentMethod'],
             taxPrice = data['taxPrice'],
             shippingPrice = data['shippingPrice'],
             totalPrice=data['totalPrice']
         )
-        
+
         # Create shipping address
-        
+
         shipping = ShippingAdress.objects.create(
             order=order,
-            address=data['shippingAdress']['address'],
+            address=data['shippingAddress']['address'],
             city=data['shippingAddress']['city'],
             postalCode=data['shippingAddress']['postalCode'],
             country = data['shippingAddress']['country'],
-            
+
         )
-        
+
         # Create order items and set order order to orderItem relationship
         for i in orderItems:
             product = Product.objects.get(_id=i['product'])
-            
+
             item = OrderItem.objects.create(
                 product=product,
                 order=order,
@@ -57,11 +57,10 @@ def addOrderItems(request):
                 price=i['price'],
                 image=product.image.url,
             )
-            
+
         # Update stock
-        product.countInStock -= item.qty
-        product.save()
-        
-    serializer = OrderSerializer(order, many=True)
-    
-    return Response(serializer.data)
+            product.countInStock -= item.qty
+            product.save()
+
+        serializer = OrderSerializer(order, many=False)
+        return Response(serializer.data)
