@@ -1,3 +1,4 @@
+from email.policy import HTTP
 from itertools import product
 import re
 from django.shortcuts import render
@@ -64,3 +65,25 @@ def addOrderItems(request):
 
         serializer = OrderSerializer(order, many=False)
         return Response(serializer.data)
+    
+    
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def getOrderById(request, pk):
+    
+    user = request.user
+    
+    try:
+         order = Order.objects.get(_id=pk)
+         if user.is_staff or order.user == user:
+            serializer = OrderSerializer(order, many=False)
+            return Response(serializer.data)
+    
+         else:
+        
+             Response ({'detail' : 'Not allowed to view this order'}, status=status.HTTP_400_BAD_REQUEST)
+    except:
+        return Response({'detail':'Order does not exists'}, status=status.HTTP_400_BAD_REQUEST)
+        
+    
+   
