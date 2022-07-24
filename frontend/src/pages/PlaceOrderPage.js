@@ -44,6 +44,7 @@ function PlaceOrderPage() {
             taxPrice: cart.taxPrice,
             totalPrice: cart.totalPrice
         }))
+
     }
     return(
         <div>

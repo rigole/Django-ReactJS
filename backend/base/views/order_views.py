@@ -68,7 +68,7 @@ def addOrderItems(request):
     
     
 @api_view(['GET'])
-@permission_classes([IsAuthenticated])
+#@permission_classes([IsAuthenticated])
 def getOrderById(request, pk):
     
     user = request.user

@@ -65,8 +65,7 @@ export const createOrder = (order) => async (dispatch, getState) => {
 export const getOrderDetails = (id) => async (dispatch, getState) => {
 
     try {
-        dispatch(
-            {
+        dispatch({
             type: ORDER_DETAILS_REQUEST
         })
 
@@ -83,9 +82,9 @@ export const getOrderDetails = (id) => async (dispatch, getState) => {
             }
         }
 
-        const { data } = await  axios.get(
+        const { data } = await axios.get(
             `/api/orders/${id}/`,
-            config
+             config
         )
 
         dispatch({
