@@ -16,6 +16,8 @@ function OrderPage() {
     const dispatch = useDispatch()
 
     const cart = useSelector(state => state.cart)
+    const userLogin = useSelector(state => state.userLogin)
+    const { userInfo } = userLogin
     const orderDetails = useSelector(state => state.orderDetails)
     const { order, error, loading  } = orderDetails
 
@@ -29,7 +31,7 @@ function OrderPage() {
     }
 
 
-
+//Tafo!W2022
     useEffect(() => {
         if (!order || order._id !== Number(orderId)){
             dispatch(getOrderDetails(orderId))
@@ -55,6 +57,8 @@ function OrderPage() {
                         <ListGroup variant='flush'>
                             <ListGroup.Item>
                                 <h2>Shipping</h2>
+                                <p><strong>Name: </strong>{userInfo.name}</p>
+                                <p><strong>Email: </strong> <a href={`mailto:${userInfo.email}`}> {userInfo.email}</a></p>
                                 <p>
                                     <strong>Shipping:</strong>
                                     {address}, {city}
@@ -63,6 +67,12 @@ function OrderPage() {
                                     {' '}
                                     {country},
                                 </p>
+
+                                {order.isDelivered ? (
+                                    <Message variant="success" message={`Delivered on ${order.deliveredAt}`}/>
+                                ) :(
+                                    <Message variant="warning" message={`Not yet delivered`}/>
+                                )}
                             </ListGroup.Item>
 
                             <ListGroup.Item>
@@ -71,6 +81,11 @@ function OrderPage() {
                                     <strong>Method:</strong>
                                     {order.paymentMethod}
                                 </p>
+                                {order.isPaid ? (
+                                  <Message variant="success" message={`Paid on ${order.paidAt}`}/>
+                                ): (
+                                    <Message variant="warning" message="Not yet Paid"/>
+                                )}
                             </ListGroup.Item>
 
                             <ListGroup.Item>
