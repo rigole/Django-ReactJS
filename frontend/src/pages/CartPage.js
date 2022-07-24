@@ -22,7 +22,7 @@ function CartScreen({ match, location }){
     //console.log(productId)
     const cart = useSelector(state => state.cart)
     const { cartItems } = cart
-    console.log(cartItems)
+    console.log(cartItems.countInStock)
 
     useEffect(() => {
         if(productId){
