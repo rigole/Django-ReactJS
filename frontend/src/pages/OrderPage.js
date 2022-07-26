@@ -37,7 +37,7 @@ function OrderPage() {
             dispatch(getOrderDetails(orderId))
 
         }
-    }, [order, orderId])
+    }, [dispatch,order, orderId])
 
 
 
