@@ -18,6 +18,7 @@ import {
 } from "../constants/orderConstant";
 
 import { CART_CLEAR_ITEMS } from "../constants/cartConstants";
+import {orderCreateReducer} from "../reducers/orderReducer";
 
 export const createOrder = (order) => async (dispatch, getState) => {
 
@@ -111,6 +112,8 @@ export const getOrderDetails = (id) => async (dispatch, getState) => {
 
 }
 
+
+
 export const payOrder = (id, paymentResult) => async (dispatch, getState) => {
     try{
         dispatch({
@@ -139,7 +142,12 @@ export const payOrder = (id, paymentResult) => async (dispatch, getState) => {
             payload: data
         })
 
-    }catch (e) {
-
+    }catch (error) {
+        dispatch({
+            type: ORDER_PAY_FAIL,
+            payload: error.response && error.response.data.detail
+                ? error.response.data.detail
+                : error.message,
+        })
     }
 }
