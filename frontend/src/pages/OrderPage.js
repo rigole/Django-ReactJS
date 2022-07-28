@@ -15,11 +15,16 @@ function OrderPage() {
     const navigate = useNavigate()
     const dispatch = useDispatch()
 
+    const [sdkReady, setSdkReady] = useState(false)
+
     const cart = useSelector(state => state.cart)
     const userLogin = useSelector(state => state.userLogin)
     const { userInfo } = userLogin
     const orderDetails = useSelector(state => state.orderDetails)
     const { order, error, loading  } = orderDetails
+
+    const orderPay = useSelector(state => state.orderPay)
+    const { loading: loadingPay, success:successPay } = orderPay
 
     const address = cart.shippingAddress.address;
     const city = cart.shippingAddress.city
@@ -30,14 +35,31 @@ function OrderPage() {
         order.itemsPrice = order.orderItems.reduce((acc, item) => acc + item.price * item.qty, 0).toFixed(2)
     }
 
+    const addPayPalPayment = () => {
+        const script = document.createElement('script')
+        script.type = 'text/javascript'
+        script.src = 'https://www.paypal.com/sdk/js?client-id=Af9sDzqVC8zBfRQJvl-gUjHPz8rO4i26KX0YKyn1HQx6eTJgcT5xArTpaDGpIDPFI3g377C62d4SszUU'
+        script.async = true
+        script.onload = () => {
+            setSdkReady(true)
+        }
+        document.body.appendChild(script)
+    }
+
 
 //Tafo!W2022
     useEffect(() => {
-        if (!order || order._id !== Number(orderId)){
+        if (!order || successPay || order._id !== Number(orderId)){
             dispatch(getOrderDetails(orderId))
 
+        }   else if (!order.isPaid) {
+            if(!window.paypal) {
+                addPayPalPayment()
+            } else {
+                setSdkReady(true)
+            }
         }
-    }, [dispatch,order, orderId])
+    }, [dispatch,order, orderId, successPay])
 
 
 
