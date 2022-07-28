@@ -3,10 +3,12 @@ import { Button, Row, Col, ListGroup, Image, Card } from "react-bootstrap";
 import { Link, useNavigate, useParams,  } from "react-router-dom";
 import Message  from "../components/Message";
 import  match  from "react-router-dom";
+import { PayPalButton } from "react-paypal-button-v2";
 import Loader from "../components/Loader";
 import { useDispatch, useSelector } from "react-redux";
 //import FormContainer from "../components/FormContainer";
-import { getOrderDetails } from "../actions/orderActions";
+
+import { getOrderDetails, payOrder } from "../actions/orderActions";
 //import { ORDER_CREATE_RESET } from "../constants/orderConstant";
 
 function OrderPage() {
@@ -63,6 +65,9 @@ function OrderPage() {
 
 
 
+    const successPaymentHandler = (paymentResult) => {
+        dispatch(payOrder(orderId, paymentResult))
+    }
 
 
 
@@ -183,6 +188,20 @@ function OrderPage() {
                                 </ListGroup.Item>
 
 
+                                {!order.isPaid && (
+                                    <ListGroup.Item>
+                                        {loadingPay && <Loader/>}
+
+                                        {!sdkReady ? (
+                                            <Loader/>
+                                        ) : (
+                                            <PayPalButton
+                                                amount={order.totalPrice}
+                                                onSuccess={successPaymentHandler}
+                                            />
+                                        )}
+                                    </ListGroup.Item>
+                                )}
 
 
                             </ListGroup>
