@@ -1,3 +1,4 @@
+from ast import Return
 from email.policy import HTTP
 from itertools import product
 import re
@@ -14,8 +15,7 @@ from rest_framework import status
 
 from datetime import datetime
 
-
-
+ 
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
 def addOrderItems(request):
@@ -69,9 +69,19 @@ def addOrderItems(request):
         serializer = OrderSerializer(order, many=False)
         return Response(serializer.data)
     
-    
+
 @api_view(['GET'])
 #@permission_classes([IsAuthenticated])
+def getMyOrders(request):
+    user = request.user
+    orders = user.order_set.all()
+    serializer = OrderSerializer(orders, many=True)
+    return Response(serializer.data)
+
+
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
 def getOrderById(request, pk):
     
     user = request.user

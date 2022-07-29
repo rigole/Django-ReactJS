@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 //import FormContainer from "../components/FormContainer";
 
 import { getOrderDetails, payOrder } from "../actions/orderActions";
+import {ORDER_PAY_RESET} from "../constants/orderConstant";
 //import { ORDER_CREATE_RESET } from "../constants/orderConstant";
 
 function OrderPage() {
@@ -52,6 +53,7 @@ function OrderPage() {
 //Tafo!W2022
     useEffect(() => {
         if (!order || successPay || order._id !== Number(orderId)){
+            dispatch({ type: ORDER_PAY_RESET })
             dispatch(getOrderDetails(orderId))
 
         }   else if (!order.isPaid) {
