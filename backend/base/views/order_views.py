@@ -70,8 +70,11 @@ def addOrderItems(request):
         return Response(serializer.data)
     
 
+
+
+
 @api_view(['GET'])
-#@permission_classes([IsAuthenticated])
+@permission_classes([IsAuthenticated])
 def getMyOrders(request):
     user = request.user
     orders = user.order_set.all()
