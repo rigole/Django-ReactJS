@@ -71,6 +71,7 @@ function ProfilePage(){
 
        // dispatch(register(name, email, password))
     }
+    console.log(orders)
 
     return (
         <Row>
@@ -162,8 +163,14 @@ function ProfilePage(){
                                 <td>{order._id}</td>
                                 <td>{order.createdAt.substring(0, 10)}</td>
                                 <td>{order.totalPrice}</td>
-                                <td>{order.isPaid}</td>
-                                <td>{order.isDelivered}</td>
+                                <td>{order.isPaid ? order.paidAt : (
+                                    <i className="fa fa-times" style={{ color: "red" }}></i>
+                                )}</td>
+                                <td>
+                                    <LinkContainer to={`/order/${order._id}`}>
+                                        <Button className="btn-sm">Details</Button>
+                                    </LinkContainer>
+                                </td>
                             </tr>
                         ))}
                         </tbody>

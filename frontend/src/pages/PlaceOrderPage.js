@@ -20,6 +20,12 @@ function PlaceOrderPage() {
 
     cart.totalPrice = Number(cart.itemsPrice) + Number(cart.shippingPrice)
 
+    //knossos gPbn8n9kxAN!!x7K
+
+
+
+
+
 
     if(!cart.paymentMethod){
         navigate('/payment')

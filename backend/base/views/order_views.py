@@ -73,13 +73,7 @@ def addOrderItems(request):
 
 
 
-@api_view(['GET'])
-@permission_classes([IsAuthenticated])
-def getMyOrders(request):
-    user = request.user
-    orders = user.order_set.all()
-    serializer = OrderSerializer(orders, many=True)
-    return Response(serializer.data)
+
 
 
 
@@ -101,7 +95,9 @@ def getOrderById(request, pk):
     except:
         return Response({'detail':'Order does not exists'}, status=status.HTTP_400_BAD_REQUEST)
         
-    
+
+
+
 @api_view(['PUT'])
 @permission_classes([IsAuthenticated])
 def updateOrderToPaid(request, pk):
@@ -111,4 +107,15 @@ def updateOrderToPaid(request, pk):
     order.paidAt = datetime.now()
     order.save()
     return Response('Order was paid')
-   
+
+
+
+
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def getMyOrders(request):
+    user = request.user
+    orders = user.order_set.all()
+    serializer = OrderSerializer(orders, many=True)
+    return Response(serializer.data)

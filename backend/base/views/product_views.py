@@ -16,7 +16,7 @@ from rest_framework import status
 
 #geget the list of product selected once we are authenticated
 @api_view(['GET'])
-#@permission_classes([IsAuthenticated])
+@permission_classes([IsAuthenticated])
 def getProducts(request):
     products = Product.objects.all()
     serializer = ProductSerializer(products, many=True)
