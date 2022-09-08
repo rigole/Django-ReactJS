@@ -15,10 +15,13 @@ export const listProducts = () => async (dispatch) => {
 
       axios.get('/api/products/').then((response) => {
 
-            dispatch({ type: PRODUCT_LIST_SUCCESS, payload: response.data })
+            dispatch({
+                type: PRODUCT_LIST_SUCCESS,
+                payload: response.data
+            })
       })
 
-      /*dispatch({
+     /* dispatch({
           type: PRODUCT_LIST_SUCCESS,
           payload: data
       })*/
